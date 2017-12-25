@@ -4,9 +4,9 @@ import akka.actor.Actor
 import akka.actor.ActorSystem
 import akka.actor.Props
 
-object AkkaRunner {
+object AkkaRunner{
   
-  class AkkaFisrtActor extends Actor {
+  class RootActor extends Actor {
     def receive = {
       case msg:String=> println("The actor recieved the msg:"+msg)
       case (x:Int,y:Int) =>println("The multiplication of two number: "+ multiply(x,y)) 
@@ -15,17 +15,20 @@ object AkkaRunner {
     def multiply(x:Int,y:Int) = x*y
   }
   
-  val props=Props[AkkaFisrtActor]
+  def main(args:Array[String])={
   
-  val name="FirstActor"  
+    val props=Props[RootActor]
   
-  val system=ActorSystem()
+    val name="FirstActor"  
   
-  val actor=system.actorOf(props,name)
+    val system=ActorSystem()
   
-  actor !"This is the first actor"
-  actor ! (22,3)
+    val actor=system.actorOf(props,name)
   
+    actor !"This is the first actor"
+    
+    actor ! (22,3)
   
+  }
   
 }
